@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Les Fournisseurs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list #myList>
+      
+    
+    <!-- Sliding item with text options on both sides -->
+    <div *ngFor="let item of fournisseurs">
+      <ion-item-sliding *ngIf="item">
+        <ion-item-options side="start">
+          <ion-item-option color="danger" (click)="deleteItem(item)">Supprimer</ion-item-option>
+        </ion-item-options>
+    
+        <ion-item (click)="view(item)">
+          <ion-label text-wrap>
+            <h3>{{item?.nom}}</h3>
+            <ion-text color="secondary">
+              <p>{{item?.adresse}}</p>
+            </ion-text>
+          </ion-label>
+          <div slot="end">
+            <ion-label><ion-text>{{item?.phone1}}</ion-text></ion-label>
+            <ion-label><ion-text>{{item?.phone2}}</ion-text></ion-label>
+          </div>
+        </ion-item>
+    
+        <ion-item-options side="end">
+          <ion-item-option routerLink="/fournisseur/update/{{item?.id}}">Update</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button  routerLink="/fournisseur/add">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

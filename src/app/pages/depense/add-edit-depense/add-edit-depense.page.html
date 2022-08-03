@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{action}} une Dépense</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img style="max-width: 200px;" src="assets/images/moneyspender.png"></ion-img>
+  </div>
+  <form class="ion-padding" [formGroup]="ligneDepenseForm" (ngSubmit)="submitForm()" autocomplete="off">
+    <ion-item>
+      <ion-label>Type Dépense </ion-label>
+      <ion-select [compareWith]="compareWith" mode="ios"  formControlName="nom"  [(ngModel)]="currentDepense"  okText="Je choisis" cancelText="Annulez">
+        <ion-select-option   *ngFor ="let depense of allDepenses;" [value]="depense">{{depense.nom|titlecase }}</ion-select-option>
+    </ion-select>
+    <ion-buttons slot="end"  (click)="goToTypeDepense()">
+      <ion-button>
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+        </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" >Motif </ion-label>
+      <ion-input formControlName="motif" inputmode="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.motif">
+      <ng-container *ngIf="motif.hasError(error.type) && (motif.dirty || motif.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+    <ion-item>
+      <ion-label position="floating" >Montant </ion-label>
+      <ion-input formControlName="montant" type="number"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.montant">
+      <ng-container *ngIf="montant.hasError(error.type) && (montant.dirty || montant.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+
+    <ion-item class="mb-5 mt-5">
+      <ion-label>Sélectionnez votre point de vente</ion-label>
+      <ion-select [compareWith]="compareWith" mode="ios"  formControlName="pointVente"  [(ngModel)]="ptVente"  okText="Je choisis" cancelText="Annulez">
+          <ion-select-option   *ngFor ="let pointvente of allPointVentes;" [value]="pointvente">{{pointvente.nom|titlecase }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <!-- <div *ngFor="let error of errorMessages.description">
+      <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div> -->
+
+    <ion-button type="submit" class="mt-5" expand="block">{{action}} une dépense</ion-button>
+
+  </form>
+
+
+</ion-content>

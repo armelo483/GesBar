@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>liste des inventaires</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="inventaire">
+    <ion-item button detail *ngFor="let i of inventaire" (click)="gotoDetail(i)">
+      <ion-label>
+        <p>{{i.reference}}</p>
+        <!-- <ion-note *ngFor="i.dateDebut">{{i.dateDebut}} - </ion-note> -->
+        <ion-note>{{i.dateFin | date : "dd/MM/YYYY"}}</ion-note>
+      </ion-label>
+      <ion-label>
+        <h5>{{i.total_vente}}</h5>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

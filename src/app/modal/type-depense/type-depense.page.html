@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar style="--background: var(--ion-color-primary) "> 
+    <ion-title>Ajout type de dépense</ion-title>
+    <ion-buttons slot="end" (click)="dismissOrNotIfModal()">
+      <ion-button>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <ion-img style="max-width: 200px;" src="assets/images/moneyspender.png"></ion-img>
+  </div>
+
+  <form class="ion-padding" [formGroup]="depenseForm" (ngSubmit)="submitForm()" autocomplete="off">
+    <p>
+      Veuillez d'abord renseigner votre premier type de dépense svp
+    </p>
+    <ion-item>
+      <ion-label position="floating">Type Dépense </ion-label>
+      <ion-input ng-model="depenseForm.nom" formControlName="nom" inputmode="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description </ion-label>
+      <ion-textarea ng-model="depenseForm.description" formControlName="description" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+
+    <ion-button type="submit" class="mt-5" expand="block">Ajouter une dépense</ion-button>
+    <ion-button  (click)="dismissOrNotIfModal()" class="mt-1" expand="block" style="color: white;">Non je renonce</ion-button>
+  </form>
+</ion-content>

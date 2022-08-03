@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mouvement Casier</ion-title>
+    <ion-buttons slot="start">
+      <!-- <ion-buttons slot="start" (click)="activecustomForm()"> -->
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClick()">
+        <ion-icon slot="icon-only" class="custom-icon" name="settings-outline" title="Entrées sortie avancées" ></ion-icon>
+      </ion-button>
+      <ion-button (click)="logForm()">
+        <ion-icon name="checkmark-sharp" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="mouvementCasier">
+  <div class="">
+    <h5 style="padding-left: 16px; padding-right: 16px;text-align: right;" *ngIf="somme_total">Total : <span>{{somme_total | moneyFormat}}</span></h5>
+    <div class="">
+        <ion-item>
+          <ion-label>Numero de la facture</ion-label>
+          <ion-input class="marge-interne" type="text" formControlName = "num_facture" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Montant versé</ion-label>
+          <ion-input class="marge-interne" type="number"  formControlName = "montant_verse"></ion-input>
+        </ion-item>
+    </div>
+  </div>
+  <ion-list>
+    <div class="sortie ion-padding">
+      <!-- <ion-item> -->
+        <h4 style="color:#666">Emballages sortis</h4>
+      <!-- </ion-item> -->
+      <ion-item>
+        <ion-label>Nombre de casiers pleins sortis </ion-label>
+        <ion-input type="number" formControlName="nbreCasierPleinSortie" inputmode="number" min="0" ></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.nbreCasierPleinSortie">
+        <ng-container *ngIf="nbreCasierPleinSortie?.hasError(error.type) && (nbreCasierPleinSortie?.dirty || nbreCasierPleinSortie?.touched)">
+          <small class="error-message pl10">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <div *ngIf="activeCustom">
+        <ion-item >
+          <ion-label >Emballage Supp Sortie</ion-label>
+          <ion-input type="number"  formControlName="nbreCasierSuppSortie"  inputmode="number" min="0"></ion-input>
+        </ion-item>
+        <div class="custom-input">
+          <div class="label"><ion-label >Ajouter les bouteilles supplementaires sortie</ion-label></div>
+          <ion-item *ngFor="let c of bouteilleSuplementaireSortie; let index = index" (click)="removeBouteilleSuplementaire(c,'sortie')">
+            <div slot="start">{{c.casier.nom}}</div>
+            <div>{{c.nbreBouteille}}</div>
+            <div slot="end"><ion-icon color="danger" name="close"></ion-icon></div>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.bouteilleSuplementaireSortie">
+            <ng-container *ngIf="bouteilleSuplementaireSortie?.hasError(error.type) && (bouteilleSuplementaireSortie?.dirty || bouteilleSuplementaireSortie?.touched)">
+              <small class="error-message pl10">{{error.message}}</small>
+            </ng-container>
+          </div>
+          <div>
+            <ion-select #casierSortie name="" [value]="allCasiers[0]">
+              <ion-select-option *ngFor="let c of allCasiers" [value]="c">{{c.nom}}</ion-select-option>
+            </ion-select>
+            <input #bouteilleSortie inputmode="munber" type="number" min="0">
+            <ion-button (click)="addBouteilleSuplementaire({casier: casierSortie.value,nbreBouteille:bouteilleSortie.value},'sortie',bouteilleSortie)" >Ajouter</ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="entree ion-padding">
+      <!-- <ion-item> -->
+        <h4 style="color:#666" >Emballages entrés</h4>
+      <!-- </ion-item> -->
+      <ion-item>
+        <ion-label >Nombre de casiers pleins entrés </ion-label>
+        <ion-input type="number" formControlName="nbreCasierPleinEntree" inputmode="number" min="0" value="20" [attr.readOnly]="!activeCustom"></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.nbreCasierPleinEntree">
+        <ng-container *ngIf="nbreCasierPleinEntree?.hasError(error.type) && (nbreCasierPleinEntree?.dirty || nbreCasierPleinEntree?.touched)">
+          <small class="error-message pl10">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <div *ngIf="activeCustom">
+        <ion-item>
+          <ion-label >Emballage Supp Entrée </ion-label>
+          <ion-input type="number" formControlName="nbreCasierSuppEntree" inputmode="number" min="0"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.nbreCasierSuppEntree">
+          <ng-container *ngIf="nbreCasierSuppEntree?.hasError(error.type) && (nbreCasierSuppEntree?.dirty || nbreCasierSuppEntree?.touched)">
+            <small class="error-message pl10">{{error.message}}</small>
+          </ng-container>
+        </div>
+        <div class="custom-input">
+          <div class="label"><ion-label >Ajouter les bouteilles supplementaires entrées</ion-label></div>
+          <ion-item *ngFor="let c of bouteilleSuplementaireEntree; let index = index" (click)="removeBouteilleSuplementaire(c,'entree')">
+            <div slot="start">{{c.casier.nom}}</div>
+            <div>{{c.nbreBouteille}}</div>
+            <div slot="end"><ion-icon color="danger" name="close"></ion-icon></div>
+          </ion-item>
+          
+          <div>
+            <ion-select #casierEntree [compareWith]="comparewith" [value]="allCasiers[0]">
+              <ion-select-option *ngFor="let c of allCasiers" [value]="c">{{c.nom}}</ion-select-option>
+            </ion-select>
+            <input #bouteilleEntree type="number" min="0">
+            <ion-button (click)="addBouteilleSuplementaire({casier: casierEntree.value, nbreBouteille:bouteilleEntree.value},'entree',bouteilleEntree)" >Ajouter</ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+</form>
+</ion-content>

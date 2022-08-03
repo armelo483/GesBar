@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details produit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-description">
+  <ion-list>
+    <ion-item>
+      <ion-note>Nom</ion-note>
+      <p>{{produit?.nom}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-note>Catégorie</ion-note>
+      <p>{{produit?.categorie?.nom}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-note>Prix de vente</ion-note>
+      <p>{{produit?.prixV}}</p>  
+    </ion-item>
+    <ion-item>
+      <ion-note>Prix Achat</ion-note><p>{{produit?.prixA}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-note>Ristourne</ion-note><p>{{produit?.ristourne}}</p>
+    </ion-item> 
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button  (click)="updateItem(produit)">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+

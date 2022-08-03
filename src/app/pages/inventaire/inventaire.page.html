@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Inventaire</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="addReste()">
+          <ion-icon slot="icon-only" name="checkmark-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+  
+<ion-content>
+  <div class="ion-padding">
+    <div >
+      <ion-item class="custom-item" style="margin-left: 0; margin-right: 0" id="modal-hander-date-fin">
+        <ion-icon slot="start" name="calendar-outline"></ion-icon>
+        <ion-label>Debut:</ion-label>
+        <ion-label slot="end">{{toTextDate(dateFin)}}</ion-label>
+      </ion-item>
+    </div>
+    <!-- <div> -->
+      <ion-item style="margin-left: 0; margin-right: 0" button detail routerLink="/inventaire/list-inventaire" >
+        <ion-label>Consulter la liste de vos ravitaillements</ion-label>
+      </ion-item>
+    <!-- </div> -->
+    <div *ngIf="inventaireSvc.getInventaire().restes" style="padding-top:10px">
+      <div *ngFor="let p of inventaireSvc.getInventaire().restes" class="prod-input">
+          <div class="prod-name">{{p.nom}}</div>
+          <input #val type="number" (keypress)="keypress(val)" [(ngModel)]="p.qte" >
+      </div>
+    </div>
+  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Versement</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-input type="number" inputmode="numeric" style="width: 100%;border:1px solid #ccc;height: 35px;padding: 0 11px;" #versement (keypress)="keypress(versement)" [(ngModel)]="inventaireSvc.getInventaire().versement"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  <div style="padding-left:10px">
+    <ion-button (click)="addDepense()">
+      <ion-label>Ajouter les dépenses</ion-label>
+    </ion-button>
+  </div>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="addReste()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal trigger="modal-hander-date-fin" class="custom-date-inline-modal">
+    <ng-template>
+        <ion-content>
+          <ion-datetime #datetime size="cover" [max]="toDatetimeFormat(today)" presentation="date" [value]="toDatetimeFormat(dateFin)" (click)="dateChanged(datetime.value)" mode="ios">
+            <ion-buttons slot="buttons">
+              <ion-button (click)="closeDate()">Annuler</ion-button>
+              <ion-button (click)="confirmDate()">Ok</ion-button>
+            </ion-buttons>
+          </ion-datetime>
+        </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+
+

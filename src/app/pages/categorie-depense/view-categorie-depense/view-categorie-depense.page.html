@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details Catégorie dépense</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-description">
+  <ion-list>
+    <ion-item>
+      <ion-note>Nom</ion-note>
+      <p>{{categorieDepense?.nom}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-note>Description</ion-note>
+      <p>{{categorieDepense?.description}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button  routerLink="/categorie-depense/update/{{categorieDepense?.id}}">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

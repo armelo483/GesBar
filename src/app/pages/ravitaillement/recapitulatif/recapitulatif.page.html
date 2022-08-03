@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>recapitulatif</ion-title>
+    <ion-buttons slot="end" *ngIf="!(action == 'view')">
+      <ion-button (click)="addRavitaillement()">
+        <ion-icon slot="icon-only" name="checkmark-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item [button]="action == 'update'" id="datetime-modal">
+    <ion-label color="primary">Date</ion-label>
+    <ion-label slot="end" color="primary">{{ravitaillement?.date | date : "d/MM/YYYY"}}</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'">
+    <ion-label>Point de vente</ion-label>
+    <ion-label slot="end" color="primary">TKC bar</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'" (click)="update({element: 'num_facture', text: 'N° Facture', type: 1})">
+    <ion-label>N° Facture</ion-label>
+    <ion-label slot="end" color="primary">{{ravitaillement?.num_facture}}</ion-label>
+  </ion-item>
+  <ion-item  [button]="action == 'update'" (click)="update('nom')">
+      <ion-label >Fournisseur</ion-label>
+      <ion-label slot="end" color="primary">{{ravitaillement?.fournisseur?.nom}}</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'">
+    <ion-label >Total Facture</ion-label>
+    <ion-label slot="end" color="primary">{{ravitaillement?.somme_total}} Fcfa</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'" (click)="update('montant_verse')">
+    <ion-label >Montant Versé</ion-label>
+    <ion-label slot="end" color="primary">{{ravitaillement?.montant_verse}} Fcfa</ion-label>
+  </ion-item>
+  <div >
+    <div class="flex" style="justify-content: space-between;margin-top: 16px;">
+      <ion-note>C = Casier</ion-note>
+      <ion-note>B = Bouteille</ion-note>
+    </div>
+    <ion-grid style="margin-top: 0;" class="ion-margin">
+      <ion-row>
+        <ion-col size="4">Noms</ion-col>
+        <ion-col size="4">Qté(C-B)</ion-col>
+        <ion-col size="4">Prix</ion-col>
+      </ion-row>
+      <div  *ngIf="ravitaillement?.produits">
+        <ion-row *ngFor="let p of ravitaillement?.produits" (click)="update({produit: p})">
+          <ion-col size="4" *ngIf="p">{{p?.nom}}</ion-col>
+          <ion-col size="4" *ngIf="p" style="text-align: right;">{{divisionEntiere(p.qte, p.nbreBtleParCasier)}}-{{divisionReste(p.qte, p.nbreBtleParCasier)}}</ion-col>
+          <ion-col size="4" *ngIf="p" style="text-align: right;">montant</ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </div>
+  <ion-item  [button]="action == 'update'" (click)="update('nbre_casier_plein_entree')">
+    <ion-label > Nbre Casier plein Entrés</ion-label>
+    <ion-label slot="end">{{ravitaillement?.nbre_casier_plein_entree}}</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'" (click)="update('nbre_casier_plein_sortie')">
+    <ion-label >Nombre Casier plein Sortie</ion-label>
+    <ion-label slot="end">{{ravitaillement?.nbre_casier_plein_sortie}}</ion-label>
+  </ion-item>
+
+  <ion-grid class="ion-margin">
+    <ion-row>
+      <ion-col size="6">Entrée</ion-col>
+      <ion-col  size="6">Sortie</ion-col>
+    </ion-row>
+
+    <ion-row class="custom">
+      <ion-col class="custom-col" size="6">
+        <ion-row >
+          <ion-col size="6">Casier</ion-col>
+          <ion-col  size="6">Bouteille</ion-col>
+        </ion-row>
+        <ion-row size="6" *ngFor="let c of ravitaillement?.nbre_bouteille_sup_entree" (click)="update({bouteilleSupEntree: c})">
+          <ion-col  size="6" >{{c?.nom}}</ion-col>
+          <ion-col  size="6"  >{{c?.nbreBouteille}}</ion-col>
+        </ion-row>
+      </ion-col>
+
+      <ion-col class="custom-col" size="6">
+        <ion-row>
+          <ion-col  size="6">Casier</ion-col>
+          <ion-col  size="6">Bouteille</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let c of ravitaillement?.nbre_bouteille_sup_sortie" (click)="update({bouteilleSupSortie: c})">
+          <ion-col  size="6">{{c?.nom}}</ion-col>
+          <ion-col size="6">{{c?.nbreBouteille}}</ion-col>
+        </ion-row>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-item [button]="action == 'update'" (click)="update('nbre_casier_sup_entree')">
+      <ion-label>Nombre casiers supplementaires entrés</ion-label>
+      <ion-label slot="end" >{{ravitaillement?.nbre_casier_sup_entree}}</ion-label>
+    </ion-item>
+    <ion-item [button]="action == 'update'"  (click)="update('nbre_casier_sup_sortie')">
+      <ion-label>Nombre casiers supplementaires sortis</ion-label>
+      <ion-label slot="end" >{{ravitaillement?.nbre_casier_sup_sortie}}</ion-label>
+    </ion-item>
+  </ion-grid>
+
+ 
+  <ion-modal class="custom-date-inline-modal" trigger="datetime-modal">
+    <ng-template>
+          <ion-content>
+            <ion-datetime #date presentation="date" size="cover" [value]="toDatetimeFormat(ravitaillement.date)" (click)="updateDate(date.value)">
+              <ion-buttons  slot="buttons">
+                <ion-button (click)="cancelDate()">Annuler</ion-button>
+                <ion-button (click)="confirmDate()">Confirmer</ion-button>
+              </ion-buttons>
+          </ion-datetime>
+          </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

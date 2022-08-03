@@ -1,0 +1,16 @@
+ion-fab-button.data::after{
+    content: attr(data-desc);
+    position: absolute;
+    top: 4px;
+    right: 50px;
+    padding: 7px 12px;
+    background-color: var(--ion-color-primary);
+    border-radius: 10px;
+    color: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 0px 10px 0 rgba(0,0,0,0.5);
+
+}

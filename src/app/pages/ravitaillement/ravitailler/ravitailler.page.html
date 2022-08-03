@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ravitailler</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="customCommande()">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+      <ion-button (click)="logForm()" >
+        <ion-icon slot="icon-only" name="checkmark-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <div class="ravitailler" >
+      <img height="100" src="assets/images/svg/sabc.svg">
+    </div>
+    <h2 class="d-flex center text-muted" >{{prod?.nom}}</h2>
+  </div>
+  <div class="divider" style="margin-top:20px"></div>
+  <form class="ion-padding" [formGroup]="ravitaillerForm">
+    <ion-item>
+      <ion-label >Nombre de Casier </ion-label>
+      <ion-input type="number" min="0" formControlName="qteCasier" inputmode="number"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages?.qteCasier">
+      <ng-container *ngIf="qteCasier?.hasError(error.type) && (qteCasier?.dirty || qteCasier?.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item *ngIf="isCustom">
+      <ion-label >Nombre de bouteilles Supplementaires</ion-label>
+      <ion-input type="number" min="0" formControlName="qteBtle" inputmode="number"></ion-input>
+    </ion-item>
+    <!-- <ion-note color="danger">ce champ ne doit pas être directement affiché</ion-note> -->
+    <div *ngFor="let error of errorMessages?.qteBtle">
+      <ng-container *ngIf="qteBtle?.hasError(error.type) && (qteBtle?.dirty || qteBtle?.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+    <div style="position: relative;">
+      <ion-item>
+        <ion-label>prix </ion-label>
+        <ion-input type="number" min="0" formControlName="prix" [attr.disabled]="modifierPrix" inputmode="number"></ion-input>
+      </ion-item>
+      <ion-button class="custom-button" (click)="modifierPrix = !modifierPrix"  [disabled]="false">
+        <ion-icon slot="icon-only" size="small" name="pencil-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div *ngFor="let error of errorMessages.prix">
+      <ng-container *ngIf="prix?.hasError(error.type) && (prix?.dirty || prix?.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+  </form>
+</ion-content>

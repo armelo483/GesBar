@@ -1,0 +1,116 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ajouter un produit</ion-title>
+    <ion-buttons slot="end" style="padding-right: 10px;">
+      <ion-icon button name="camera" slot="icon-only">
+      </ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+  <form *ngIf="produitForm" [formGroup]="produitForm">
+    <ion-item>
+      <ion-label position="stacked">Nom du Produit<span class="error-message">*</span></ion-label>
+      <ion-input formControlName="nom" inputmode="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.nom">
+      <ng-container *ngIf="nom.hasError(error.type) && (nom.dirty || nom.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+    <ion-item *ngIf="prod">
+      <ion-label  position="stacked">Fournisseurs</ion-label>
+
+      <ion-select formControlName="fournisseurs" mode="ios" [(ngModel)]="chosenFournisseurs" multiple [interfaceOptions]="alertOption" cancelText="Annuler" okText="Ok" [compareWith]="compareFn">
+        <ion-select-option *ngFor="let f of fournisseursList" [value]="f">{{f?.nom}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    
+
+    <ion-item>
+      <ion-label position="stacked">Prix Achat TTC<span class="error-message">*</span></ion-label>
+      <ion-input inputmode="numeric" type="number" min="0" formControlName="prixA"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.prixA">
+      <ng-container *ngIf="prixA.hasError(error.type) && (prixA.dirty || prixA.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+    <ion-item>
+      <ion-label position="stacked">Prix Vente TTC<span class="error-message">*</span></ion-label>
+      <ion-input inputmode="numeric" type="number"  min="0" formControlName="prixV"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.prixV">
+      <ng-container *ngIf="prixV.hasError(error.type) && (prixV.dirty || prixV.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+    <ion-item>
+      <ion-label position="stacked">Ristourne</ion-label>
+      <ion-input formControlName="ristourne" type="number"  min=0 inputmode="numeric"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.ristourne">
+      <ng-container *ngIf="ristourne.hasError(error.type) && (ristourne.dirty || ristourne.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+    <ion-item>
+      <ion-label position="stacked">Stock Initial en <strong>casierID</strong><span class="error-message">*</span></ion-label>
+      <ion-input inputmode="numeric" type="number"  formControlName="stoCaInit"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.stocaInit">
+      <ng-container *ngIf="stoCaInit.hasError(error.type) && (stoCaInit.dirty || stoCaInit.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+    <ion-item>
+      <ion-label position="stacked">Stock Initial en <strong>Bouteille</strong><span class="error-message">*</span></ion-label>
+      <ion-input inputmode="numeric" type="number"  formControlName="stoBoInit"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.stoBoInit">
+      <ng-container *ngIf="stoBoInit.hasError(error.type) && (stoBoInit.dirty || stoBoInit.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label  position="stacked">Famille de Produit<span class="error-message">*</span></ion-label>
+      <ion-select formControlName="categorie" [interfaceOptions]="alertOption" [compareWith]="compareWith" cancelText="Annuler" okText="Ok">
+        <ion-select-option *ngFor="let c of catProduit" [value]="c">{{c?.nom}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.categorie">
+      <ng-container *ngIf="categorie.hasError(error.type) && (categorie.dirty || categorie.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label  position="stacked">Emballages</ion-label>
+      <ion-select formControlName="casier"  [interfaceOptions]="alertOption" [compareWith]="compareWith" cancelText="Annuler" okText="Ok">
+        <ion-select-option *ngFor="let casier of casiers" [value]="casier">{{casier?.nom}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Avec casier ?</ion-label>
+      <ion-toggle formControlName="hasCasier" mode="ios" [checked]="prod?.hasCasier"></ion-toggle>
+    </ion-item>
+    <br>
+    <br>
+    <br>
+  </form>
+
+
+</ion-content>
+
+<ion-fab position="fixed" horizontal="end" vertical="bottom">
+  <ion-fab-button  (click)="logForm()">
+    <ion-icon name="checkmark-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Dépenses</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- List of Sliding Items -->
+  <app-bar></app-bar>
+<ion-list>
+    <ion-item-sliding *ngFor="let item of ligneDepenses|skipempty">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="deleteItem(item)">Supprimer</ion-item-option>
+      </ion-item-options>
+      <ion-item button detail (click)="viewItem(item)">
+        <div>
+          <ion-label>{{item.motif}}</ion-label>
+          <ion-note>{{item.montant +' Fcfa'}}</ion-note>
+        </div>
+        <ion-note slot="end">{{item.date | date:'shortDate'}}</ion-note>
+      </ion-item>
+      
+      <ion-item-options side="end">
+        <ion-item-option (click)="updateItem(item)">Update</ion-item-option>
+      </ion-item-options>
+      <!-- <ion-item-options side="end">
+        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+      </ion-item-options> -->
+    </ion-item-sliding>
+
+   <!-- <ion-item-sliding>
+     <ion-item button detail>
+      <div>
+        <ion-label>Item</ion-label>
+        <ion-note color="secondary">7500 Fcfa</ion-note>
+      </div>
+      <ion-note slot="end">20/08/2021</ion-note>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding> -->
+</ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <!-- <ion-fab-button color="secondary" routerLink="add-edit-depense"> -->
+      <ion-fab-button  (click)="presentModalOrNot()">
+      <ion-icon  name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

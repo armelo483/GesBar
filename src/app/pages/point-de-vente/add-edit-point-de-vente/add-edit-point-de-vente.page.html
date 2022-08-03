@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{action}} une Dépense</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img style="max-width: 200px;" src="assets/images/moneyspender.png"></ion-img>
+  </div>
+  <form class="ion-padding" [formGroup]="depenseForm">
+    <ion-item>
+      <ion-label position="floating" >Motif </ion-label>
+      <ion-input formControlName="motif" inputmode="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.motif">
+      <ng-container *ngIf="motif.hasError(error.type) && (motif.dirty || motif.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating" >Montant </ion-label>
+      <ion-input formControlName="prix" inputmode="text"></ion-input>
+    </ion-item>
+
+    <div *ngFor="let error of errorMessages.prix">
+      <ng-container *ngIf="prix.hasError(error.type) && (prix.dirty || prix.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Description </ion-label>
+      <ion-textarea formControlName="description" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.description">
+      <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+
+  </form>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

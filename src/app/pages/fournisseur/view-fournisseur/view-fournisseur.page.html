@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details Fournisseur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-description">
+  <ion-card>
+    <ion-card-header>
+      <!-- <ion-card-subtitle>ristourne</ion-card-subtitle> -->
+      <ion-card-title>{{"06/02/2022" | dateTransform}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-list>
+    <ion-item>
+      <ion-note slot="start">Noms</ion-note>
+      <div slot="end">
+        <ion-label >{{fournisseur?.nom}}</ion-label>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-note  slot="start" text-wrap>
+        Adresse
+      </ion-note>
+      <div slot="end">
+        <ion-label>{{fournisseur?.adresse}}</ion-label>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-note  slot="start" text-wrap>
+        Téléphone 1
+      </ion-note>
+      <div slot="end">
+        <ion-label>{{fournisseur?.phone1}}</ion-label>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-note slot="start">Téléphone 2</ion-note>
+      <div slot="end">
+        <ion-label>{{fournisseur?.phone2}}</ion-label>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label text-wrap>
+        <h3>Collecte la ristourne</h3>
+      </ion-label>
+      <div slot="end">
+        <ion-label slot="end" *ngIf="fournisseur?.collecte_ristourne" >OUI</ion-label>
+        <ion-label slot="end" *ngIf="!fournisseur?.collecte_ristourne" >NON</ion-label>
+      </div>
+    </ion-item>
+  </ion-list>
+  <!-- <ion-card > -->
+  <ion-card *ngIf="fournisseur?.collecte_ristourne">
+    <ion-card-header>
+      <!-- <ion-card-subtitle>ristourne</ion-card-subtitle> -->
+      <ion-card-title>Evaluation de la ristourne</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="content-card">
+      
+        <div >
+          <ion-item class="custom-item" style="margin-left: 0; margin-right: 0" id="modal-hander-date-debut">
+            <ion-icon slot="start" name="calendar-outline"></ion-icon>
+            <ion-label>Debut:</ion-label>
+            <ion-label slot="end">{{dateDebut}}</ion-label>
+          </ion-item>
+        </div>
+        <div>
+          <ion-item class="custom-item" style="margin-left: 0; margin-right: 0" id="modal-hander-date-fin">
+            <ion-icon slot="start" name="calendar-outline"></ion-icon>
+            <ion-label>Fin</ion-label>
+            <ion-label slot="end">{{dateFin}}</ion-label>
+          </ion-item>
+        </div>
+      <div style="display: flex;justify-content: space-between;padding-top:12px">
+        <h2>Total</h2>
+        <h4>{{ristourne}}</h4>
+      </div>
+      <div style="display: flex;justify-content: space-between;padding-top:12px">
+        <h2>Nombre de casiers</h2>
+        <h4>{{nbre_casier}}</h4>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-modal trigger="modal-hander-date-debut" class="custom-date-inline-modal">
+    <ng-template>
+        <ion-content>
+          <ion-datetime #mindatetime size="cover" presentation="date" [value]="dateDebut" (click)="dateChanged(mindatetime.value, 'date_debut')" mode="ios">
+            <ion-buttons slot="buttons">
+              <ion-button (click)="closeDate()">Annuler</ion-button>
+              <ion-button (click)="confirmDate()">Ok</ion-button>
+            </ion-buttons>
+          </ion-datetime>
+        </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal trigger="modal-hander-date-fin" class="custom-date-inline-modal">
+    <ng-template>
+        <ion-content>
+          <ion-datetime #maxdatetime size="cover" presentation="date" [value]="dateFin" (click)="dateChanged(maxdatetime.value, 'date_fin')" mode="ios">
+            <ion-buttons slot="buttons">
+              <ion-button (click)="closeDate()">Annuler</ion-button>
+              <ion-button (click)="confirmDate()">Ok</ion-button>
+            </ion-buttons>
+          </ion-datetime>
+        </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

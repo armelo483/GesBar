@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details casiers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-description">
+  <ion-list>
+    <ion-item>
+      <ion-note>Nom</ion-note><p>{{casier?.nom}}</p>
+    </ion-item>
+    <ion-item>
+
+      <ion-note>Nombre</ion-note><p>{{casier?.nbreBtleParCasier}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-note>Description</ion-note><p>{{casier?.description}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button  routerLink="/casier/update/{{id}}">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

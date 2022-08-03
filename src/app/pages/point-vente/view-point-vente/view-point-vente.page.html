@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details Point de Vente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-description">
+  <ion-list>
+    <ion-item>
+      <ion-note>Nom</ion-note>
+      <p>{{pointvente?.nom}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-note>Adresse</ion-note><p>{{pointvente?.adresse}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-note>Description</ion-note><p>{{pointvente?.description}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button   routerLink="/point-vente/update/{{id}}">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Détail avarie de {{avarie.produit.nom}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-description">
+  <ion-list>
+    <ion-item>
+      <ion-note>Nombre de produits avariés</ion-note>
+      <p>{{avarie?.qte}}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-note>Date</ion-note><p>{{avarie?.date|date: 'dd/MM/yyyy'}}</p>
+    </ion-item>
+
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button   (click)="updateItem(avarie)">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

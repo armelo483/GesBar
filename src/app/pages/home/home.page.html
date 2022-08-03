@@ -1,0 +1,228 @@
+
+<!-- <app-bar [DisableAppBar]="disableAppBar"></app-bar> -->
+<!-- <ion-menu-button (click)='onClickMenuButton()'>
+
+</ion-menu-button> -->
+
+<ion-content>
+  <div id="svg_calque">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="150"  viewBox="0 0 1800 1230" preserveAspectRatio="none">
+      <defs>
+          <linearGradient id="myGradient" gradientTransform="rotate(45)">
+            <stop offset="5%"  stop-color="#666464" />
+            <stop offset="95%" stop-color="#c0c0c0" />
+          </linearGradient>
+        </defs>
+        <path class="first_svg_path" d="M 0,0
+               L 500,0
+               C 440,1520 1900,425 1800, 1330
+               L 1800,0
+               Z" fill="url('#myGradient')" 
+               />
+      </svg>
+  </div>
+  <div id="main_content">
+    <div class="burger_menu to_animate" (click)="openMenu()">
+      <label for="check">
+        <input type="checkbox" id="check"/> 
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+   </div>
+   <div class="photo_menu_bar to_animate">
+      <div class="photo">
+        <ion-avatar>
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+        </ion-avatar>
+      </div>
+
+
+    <div class="menu_bar to_animate">  
+      <app-bar color="secondary"></app-bar>
+    </div>
+   </div>
+
+   <div class="stat_div">
+    <svg xmlns="http://www.w3.org/2000/svg" 
+    style="border-radius: 27px 0 0 0;"
+    width="100%" height="150"  viewBox="0 0 1800 1230" preserveAspectRatio="none">
+      <defs>
+          <linearGradient id="myGradient2" gradientTransform="rotate(45)">
+            <stop offset="5%"  stop-color="#5E48DB" />
+            <stop offset="95%" stop-color="#5E48DB" />
+          </linearGradient>
+        </defs>
+        <path d="M-5,980 C89,15 1247,789 1604,-1
+               L 4,0
+               Z" fill="url('#myGradient2')" 
+               />
+      </svg>
+      <div class="stat_items">
+        <div class="stat_item">
+          10%
+          <p>Discount</p>
+        </div>
+        <div class="stat_item">
+          10%
+          <p>Discount</p>
+        </div>
+        <div class="stat_item">
+          10%
+          <p>Discount</p>
+        </div>
+
+      </div>
+   </div>
+    <div class="content">    
+
+      <div  class="home_content">
+        <ion-row>
+          <ion-col>
+            <ion-button  routerLink="/inventaire" class="home_button" routerDirection="forward" >
+              <div>
+                <ion-icon color="primary" slot="start" src="/assets/icon/inventaire.svg"></ion-icon>
+                <label>Inventaire</label>
+              </div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button routerLink="/ligne-depenses" class="home_button" routerDirection="forward" >
+              <div>
+                <ion-icon color="primary" src="/assets/icon/depense.svg"></ion-icon>
+                <label>Dépenses</label>
+              </div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button routerLink="/ravitaillement" class="home_button" routerDirection="forward" >
+              <div>
+                <ion-icon color="primary" src="/assets/icon/ravitaillement.svg"></ion-icon>
+                <label>Ravitaillemments</label>
+              </div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button class="home_button">
+              <div>
+                <ion-icon color="primary" src="/assets/icon/mouvement.svg"></ion-icon>
+                <label>Mouvements Casiers</label>
+              </div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button routerLink="/inventaire" class="home_button">
+              <div>
+                <ion-icon color="primary" src="/assets/icon/dette.svg"></ion-icon>
+                <label>Dettes Argent</label>
+              </div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button routerLink="/avaris" class="home_button" size="large" >
+              <div style="border-radius: 10px;">
+                <ion-icon color="primary" src="/assets/icon/avaris.svg"></ion-icon>
+                <label>Avaris</label>
+              </div>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button routerLink="/produit" class="home_button">
+              <div>
+                <ion-icon color="primary" src="/assets/icon/rapport.svg"></ion-icon>
+                <label>Rapports</label>
+              </div>
+            </ion-button>
+          </ion-col>
+        </ion-row>  
+      </div>
+    </div>
+    
+
+  </div>
+
+<!--  <div style="width:100%; height: 200px; border-radius: 0% 100% 63% 37% / 64% 0% 100% 36% ; border: 1px solid green;">
+
+  </div>
+
+  <div class="content" style="position:relative">
+    
+
+    <div style="padding-top: 47px;padding-left: 4px;border-radius: 0 12% 0 0 ; box-shadow: 3px 5px 5px rgb(32, 32, 32);background: white;">
+      <ion-row >
+        <ion-col>
+          <ion-button  routerLink="/inventaire"  routerDirection="forward"  expand="full" color="light">
+            <div>
+              <ion-icon color="primary" slot="start" name="library-outline"></ion-icon>
+              <label>Inventaire</label>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button routerLink="/ligne-depenses" routerDirection="forward" expand="full" color="light">
+            <div>
+              <ion-icon color="primary" name="reader-outline"></ion-icon>
+              <label>Dépenses</label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button routerLink="/ravitaillement" routerDirection="forward" expand="full" color="light">
+              <ion-icon style="padding-right: 10px;" color="primary" name="archive-outline"></ion-icon>
+              <label>Ravitailler</label>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" color="light">
+            <div>
+              <ion-icon color="primary" name="pricetag-outline"></ion-icon>
+              <label>Mouvements Casiers</label>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button routerLink="/inventaire" expand="full" color="light">
+            <div>
+              <ion-icon color="primary" name="pricetag-outline"></ion-icon>
+              <label>Dettes Argent</label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button routerLink="/avaris" expand="full" color="light">
+            <div>
+              <ion-icon color="primary" name="trash-bin-outline"></ion-icon>
+              <label>Avaris</label>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button routerLink="/produit" expand="full" color="light">
+            <div>
+              <ion-icon color="primary" name="stats-chart-outline"></ion-icon>
+              <label>Rapports</label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>  
+    </div>
+        <!-- <div><app-searchbar (produitFilteredEvent)="text()"></app-searchbar></div> 
+    <div class="signature">www.gesbar.com</div>
+    <div>
+      <app-searchbar placeholder="Trouver un produit" (searchEvent)="event($event)"></app-searchbar>
+    </div>
+  </div> -->
+
+</ion-content>

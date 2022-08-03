@@ -1,0 +1,21 @@
+ion-datetime{
+    width: 100%;
+    text-align: right;
+    background-color: #f4f4fa;
+}
+
+ion-content.view-description ion-note {
+    margin-top: 2px;
+}
+
+ion-item.custom-item{
+    
+    --padding-start : 0;
+    --padding-end : 0;
+
+    .inner-item{ --padding-end : 0; }
+
+    ion-label{ margin: 0; }
+}
+
+.custom-item .div{ padding-left : 0 !important; }

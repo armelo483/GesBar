@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail inventaire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item [button]="action == 'update'">
+    <ion-label color="primary">Du</ion-label>
+    <ion-label slot="end" color="primary">{{inventaire?.dateDebut | date : "d/MM/YYYY"}}</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'">
+    <ion-label color="primary">Au</ion-label>
+    <ion-label slot="end" color="primary">{{inventaire?.dateFin | date : "d/MM/YYYY"}}</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'">
+    <ion-label>Point de vente</ion-label>
+    <ion-label slot="end" color="primary">TKC bar</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'">
+    <ion-label>N° Inventaire</ion-label>
+    <ion-label slot="end" color="primary">{{inventaire?.reference}}</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'">
+    <ion-label >Vente Total</ion-label>
+    <ion-label slot="end" color="primary">{{inventaire?.total_vente}} Fcfa</ion-label>
+  </ion-item>
+  <ion-item [button]="action == 'update'">
+    <ion-label >Montant Versé</ion-label>
+    <ion-label slot="end" color="primary">{{inventaire?.versement}} Fcfa</ion-label>
+  </ion-item>
+  <div scrollX="true" >
+    <table class="freeze-table" >
+      <thead>
+        <tr *ngIf="details">
+          <th class="col-id-no fixed-header">Noms</th>
+          <th>Stock</th>
+          <!-- details[0]?.ravitailler; sert juste a compter le nombre de ravitaillement concerné par l'inventaire -->
+          <th *ngFor="let rav of details[0]?.ravitailler; let i=index">Rav {{i+1}}</th>
+          <!-- <th >{{details}}</th> -->
+          <th>Total produit</th>
+          <th>reste</th>
+          <th>vendu</th>
+          <th>prix V</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="details">
+        <tr *ngFor="let detail of details">
+          <td class="col-id-no fixed-header">{{detail.nom}}</td>
+          <td>{{detail.stock}}</td>
+          <!-- details[0]?.ravitailler; sert juste a compter le nombre de ravitaillement concerné par l'inventaire -->
+          <td *ngFor="let rav of detail?.ravitailler">
+            <span *ngIf="rav">{{rav}}</span> <!-- list est non null-->
+          </td>
+          <!-- <th >{{details}}</th> -->
+          <td>{{detail.reste + detail.vente}}</td>
+          <td>{{detail.reste}}</td>
+          <td>{{detail.vente}}</td>
+          <td>{{detail.prixV}}</td>
+          <td>{{(detail.vente / detail.nbreBtleParCasier) * detail.prixV}}</td>
+        </tr>
+      </tbody>
+     
+    </table>
+  </div>
+</ion-content>

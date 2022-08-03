@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="id">Modifier employé</ion-title>
+    <ion-title *ngIf="!id">ajouter employé</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+  <form [formGroup]="employeForm">
+    <ion-item>
+      <ion-label position="stacked">Nom <span class="error-message">*</span></ion-label>
+      <ion-input formControlName="nom" inputmode="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.nom">
+      <ng-container *ngIf="nom.hasError(error.type) && (nom.dirty || nom.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked">Numéro cni <span class="error-message"></span></ion-label>
+      <ion-input formControlName="cni"></ion-input>
+    </ion-item>
+
+    <div *ngFor="let error of errorMessages.cni">
+      <ng-container *ngIf="cni.hasError(error.type) && (cni.dirty || cni.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked">Numéro telephone <span class="error-message"></span></ion-label>
+      <ion-input formControlName="phone1"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.phone1">
+      <ng-container *ngIf="phone1.hasError(error.type) && (phone1.dirty || phone1.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked">Adresse employé <span class="error-message"></span></ion-label>
+      <ion-textarea formControlName="adresse" rows=7 inputmode="text" clearOnEdit="true"></ion-textarea>
+      <div *ngFor="let error of errorMessages.adresse">
+        <ng-container *ngIf="adresse.hasError(error.type) && (adresse.dirty || adresse.touched)">
+          <small class="error-message pl10">{{error.message}}</small>
+        </ng-container>
+      </div>
+    </ion-item>
+
+
+
+    <!-- <ion-item>
+      <ion-label position="stacked">Numéro cni <span class="error-message"></span></ion-label>
+      <ion-text formControlName="cni" rows=7 inputmode="text" clearOnEdit="true"></ion-text>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.description">
+      <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div> -->
+
+    <ion-fab position="fixed" horizontal="end" vertical="bottom">
+      <ion-fab-button  (click)="logForm()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </form>
+
+</ion-content>
+

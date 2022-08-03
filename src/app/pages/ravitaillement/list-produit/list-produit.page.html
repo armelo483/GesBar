@@ -1,0 +1,71 @@
+<div  class="primary" style="z-index:2">
+  <ion-toolbar class="no-border" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/ravitaillement"></ion-back-button>
+    </ion-buttons>
+    <ion-title>liste des produits ravitaillés</ion-title>
+    <ion-buttons slot="end" class="ion-padding-end">
+      <ion-icon slot="icon-only" name="checkmark-sharp" color="light" class="custom-icon"  (click)="gotoEntreeSortieCasier()"></ion-icon>
+      
+    </ion-buttons>
+  </ion-toolbar>
+</div>
+
+<ion-content>
+  <ion-list>
+    <h5 *ngIf="somme_total">Total : <span>{{somme_total}}</span></h5>
+    <div class="" *ngFor="let p of produits">
+
+      <ion-item-sliding *ngIf="p">
+        <ion-item-options side="start">
+          <ion-item-option color="danger" (click)="deleteItem(p)">Supprimer</ion-item-option>
+        </ion-item-options>
+
+      <ion-item  (click)="goto(p)">
+        <ion-avatar slot="start">
+          <img style="width:40px;height:40px" src="assets/images/svg/sabc.svg" 
+           alt="">
+        </ion-avatar> 
+        <ion-label>{{p.nom}}</ion-label>
+        <div>
+          <div class="wine-quantity" *ngIf="getNbreCasier(p)">
+            <img width="15" style="padding-bottom:3px;" src="assets/images/beer_blue.png">
+            <div>
+              <ion-note>{{getNbreCasier(p)}}</ion-note>
+            </div>
+          </div>
+          <div class="wine-quantity" *ngIf="getNbreBouteilleSupplementaire(p)">
+            <img width="15" style="padding-top:3px;" src="assets/images/beer_outline_blue.png">
+            <div>
+              <ion-note>{{getNbreBouteilleSupplementaire(p)}}</ion-note>
+            </div>
+          </div>
+          <!-- <h5 *ngIf="getNbreCasier(p)">casier : <ion-note  slot="end">{{getNbreCasier(p)}}</ion-note></h5>
+          <h5 *ngIf="getNbreBouteilleSupplementaire(p)">bouteille supp : <ion-note slot="end">{{getNbreBouteilleSupplementaire(p)}}</ion-note></h5> -->
+        </div>
+      </ion-item>
+  
+      <ion-item-options side="end">
+        <ion-item-option (click)="goto(p)">Update</ion-item-option>
+      </ion-item-options>
+      </ion-item-sliding>
+    </div>
+    
+  </ion-list>
+
+    <ion-fab [activated]="state" style="z-index : 10 !important" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button  activated="false" (click)="openProductModalByFournisseur()">
+        <ion-icon  name="add"></ion-icon>
+      </ion-fab-button>
+        <!-- <ion-fab-list side="top">
+          <ion-fab-button class="data" color="primary"  (click)="withNoObjectGoTo()"  data-desc="Ajouter un produit">
+            <ion-icon name="add" ></ion-icon>
+          </ion-fab-button>
+          <ion-fab-button class="data" color="primary" (click)="logForm()"  routerDirection="forward" data-desc="Sauvegarder le ravitaillement">
+            <ion-icon name="save-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab-list> -->
+    </ion-fab>
+
+
+</ion-content>

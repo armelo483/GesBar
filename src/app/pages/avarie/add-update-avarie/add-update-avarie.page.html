@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{action}} un Avarie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+  <form [formGroup]="avarieForm">
+    <ion-item>
+      <ion-label position="stacked">Quantité <span class="error-message">*</span></ion-label>
+      <ion-input formControlName="qte" inputmode="numeric" type="number"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.qte">
+      <ng-container *ngIf="qte.hasError(error.type) && (qte.dirty || qte.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked">Description <span class="error-message"></span></ion-label>
+      <ion-textarea formControlName="description" rows=7 inputmode="text" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label  position="stacked">Nom du produit avarié<span class="error-message">*</span></ion-label>
+      <ion-select formControlName="produit" [interfaceOptions]="alertOption"  cancelText="Annuler" okText="Ok" [compareWith]="compareWith"  [(ngModel)]="product" mode="ios">
+        <ion-select-option *ngFor="let prod of produits" [value]="prod">{{prod?.nom|titlecase}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-fab position="fixed" horizontal="end" vertical="bottom">
+      <ion-fab-button   (click)="logForm()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </form>
+
+</ion-content>
+
+

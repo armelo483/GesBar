@@ -1,0 +1,30 @@
+<ion-list>
+    <div *ngFor="let sf of subfamilles">
+      <div *ngFor="let p of produits; let index = index let isFirst = first; let isLast = last">
+        <!-- <div style="padding-top:10px;color:#333;font-weight: 800;font-family: Arial, Helvetica, sans-serif" class="sub-Family"> -->
+        <div *ngIf="isFirst && haveSubFamille(sf.nom)"  class="Family">
+          {{sf.nom}}
+        </div>  
+        <ion-item routerLink="/ravitailler/{{p.id}}" button id="{{p.id}}" *ngIf="sf.nom == p.sousFamille">
+              <ion-thumbnail slot="start" style="height: 70px;">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==">
+              </ion-thumbnail>
+              <ion-label>
+                <div style="display:flex;justify-content: space-between;">
+                  <div>
+                    <h2>{{p.nom}} *{{p.nbreBouteilleParEmballage}}</h2>
+                    <h5>{{p.emballage}}</h5>
+                  </div>
+                  <div style="display : flex;align-items: center;">
+                    <div>
+                      
+                      <p><img src="assets/images/casier_outline_blue.png" style="width: 16px;" alt="">  <span class="in">90</span> </p>
+                      <p><img src="assets/images/beer_outline_blue.png"  style="width: 16px;" alt=""> <span class="in">0</span></p>
+                    </div>
+                  </div>
+                </div>
+              </ion-label>
+        </ion-item>
+      </div>
+    </div>
+</ion-list>

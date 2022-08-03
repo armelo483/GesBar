@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="id">Modifier Fournisseur</ion-title>
+    <ion-title *ngIf="!id">ajouter Fournisseur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+
+  <form [formGroup]="fournisseurForm">
+    <ion-item>
+      <ion-label position="stacked">Nom <span class="error-message">*</span></ion-label>
+      <ion-input formControlName="nom" inputmode="text"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.nom">
+      <ng-container *ngIf="nom.hasError(error.type) && (nom.dirty || nom.touched)">
+        <small class="error-message pl10">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="stacked">Adresse <span class="error-message"></span></ion-label>
+      <ion-input formControlName="adresse" inputmode="text" clearOnEdit="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">téléphone 1 <span class="error-message"></span></ion-label>
+      <ion-input formControlName="phone1" rows=7 inputmode="text" clearOnEdit="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">téléphone 2 <span class="error-message"></span></ion-label>
+      <ion-input formControlName="phone2" rows=7 inputmode="text" clearOnEdit="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Collecte la ristourne</ion-label>
+      <ion-toggle slot="end" formControlName="collecte_ristourne" name="collecte_ristourne" value="true"></ion-toggle>
+    </ion-item>
+
+    <ion-fab position="fixed" horizontal="end" vertical="bottom">
+      <ion-fab-button   (click)="logForm()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </form>
+
+</ion-content>
+
+

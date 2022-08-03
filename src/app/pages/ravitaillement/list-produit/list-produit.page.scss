@@ -1,0 +1,12 @@
+.wine-quantity{
+    display: flex;
+    flex-direction: row;
+
+    img{
+        padding-right: 8px;
+    }
+    div{
+        min-width: 25px;
+        text-align: left;
+    }
+}

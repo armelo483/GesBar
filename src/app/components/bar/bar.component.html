@@ -1,0 +1,13 @@
+<div>
+
+</div>
+
+
+
+<ion-button (click)="openModal(list)" [disabled]="DisableAppBar"  expand="full" color="secondary">
+  <ion-select #list [value]="bar[0]">
+    <ion-select-option *ngFor="let b of bar" value="{{b}}">{{b}}</ion-select-option>
+  </ion-select>
+  {{list.value}}
+  <ion-icon name="caret-down-outline"></ion-icon>
+</ion-button>

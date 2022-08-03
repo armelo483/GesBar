@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Détail de la dépense {{ligneDepense.motif}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="view-description">
+  <ion-list>
+    <ion-item>
+      <ion-note>Montant de la dépense </ion-note><p>{{ligneDepense?.montant}}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-note>Point de vente associé</ion-note><p>{{ligneDepense?.pointVente.nom}}</p>
+    </ion-item>
+
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button   (click)="updateItem(ligneDepense)">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

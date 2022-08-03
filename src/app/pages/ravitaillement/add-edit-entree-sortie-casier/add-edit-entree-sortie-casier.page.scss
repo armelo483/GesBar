@@ -1,0 +1,120 @@
+.settings{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    margin-right: 10px;
+    margin-top: 10px;
+
+    ion-icon{
+        font-size: 20px;
+    }
+    ion-label,ion-icon{
+        color: #666
+    }
+}
+
+// .marge-interne{
+//     padding-right: 10px;
+//     padding-left: 10px;
+//     outline-style: none;
+// }
+
+.custom-input{
+    margin: 10px 0px;
+
+    div{
+        margin-top: 6px;
+        display: flex;
+        line-height: 25px;
+        justify-content: stretch;
+        ion-select{
+            flex:1;
+            width: 20%;
+            border: none;
+            background-color: #666;
+            border-right: 1px solid #ccc;
+            color:#fff;
+            outline: none;
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            margin-left: 6px;
+        }
+        input{
+            flex:1;
+            border: none;
+            outline: none;
+            width: 60%;
+            padding-left: 15px;
+            margin:0 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            -ms-border-radius: 8px;
+            -o-border-radius: 8px;
+        }
+        ion-button{
+            flex:1;
+            width: 20%;
+            margin-right: 6px;
+        }
+
+    }
+
+    div.label{
+        margin: 0 6px;
+    }
+}
+
+.sortie, .entree{
+    padding: 15px 0;
+    margin: 15px 0px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border:1px solid rgb(230, 228, 228);
+
+    h4{
+        padding-left: 6px;
+    }
+}
+
+.bloc{
+    padding: 15px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border:1px solid rgb(230, 228, 228);
+    box-shadow: 0 0 10px 0 rgb(230, 228, 228);
+    h4{
+        margin-bottom: 3px;
+        color: #666;
+    }
+    input{
+        width: 100%;
+        height: 30px;
+        border: 1px solid #666;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+}
+}
+
+ion-list{
+    margin-bottom: 30px;
+}
+
+.list-md, .list-ios{
+    background: transparent !important;
+}
+

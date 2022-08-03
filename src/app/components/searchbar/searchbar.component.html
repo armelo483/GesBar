@@ -1,0 +1,6 @@
+<div class=" search-block" [ngClass]="{active : isOpen}">
+    <ion-searchbar style="margin-left: 25px;" #f animated debounce="500"   (ionChange)="keyPressed(f.value)" [placeholder]="placeholder" cancelButtonText="Custom Cancel"></ion-searchbar>
+    <ion-buttons slot="start" class="" (click)="toogleSearchView(f)">
+      <ion-icon slot="icon-only" class="custom-icon" color="light" name="chevron-forward-outline" ></ion-icon>
+    </ion-buttons>
+</div>

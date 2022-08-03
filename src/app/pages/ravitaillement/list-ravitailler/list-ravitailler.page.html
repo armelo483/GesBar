@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button routerLink="/ravitaillement"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Liste des ravitaillements</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <app-bar></app-bar>
+  <ion-list>
+    <ion-item-sliding *ngFor="let ravitaillement of listeRavitaillements|skipempty" (click)="detailRavitaillement(ravitaillement)">
+        <ion-item button *ngIf="ravitaillement">
+          <ion-avatar slot="start">
+            <img style="width:40px;height:40px" src="assets/images/svg/sabc.svg" alt="">
+          </ion-avatar> 
+          <div>
+            <h5>{{formatDateString(ravitaillement?.date)}}</h5>
+            <p style="color:darkgray;">{{ravitaillement?.fournisseur.nom}}</p>
+          </div>
+          <div title="ristourne" slot="end">
+            <h5>{{ravitaillement?.montant_verse}} Fcfa</h5>
+            <ion-note color="tertiary">{{getRavitaillementTotal(ravitaillement?.produits)}} Fcfa</ion-note>
+            <ion-icon title="Ristourne" name="information-circle-outline"></ion-icon>
+          </div>
+      </ion-item>
+
+      <ion-item-options  side="start">
+        <ion-item-option color="danger" (click)="deleteItem(ravitaillement)">
+          Supprimer
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item-options side="end" (click)="updateRavitaillement(ravitaillement)" *ngIf="!ravitaillement.save">
+          <ion-item-option >Mettre à jour</ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding> 
+  </ion-list>
+</ion-content>

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recap Inventaire</ion-title>
+    <ion-buttons slot="end" class="ion-padding-end" (click)="dismiss()">
+      <ion-icon slot="icon-only"  name="close" ></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+  <ion-list>
+    <ion-item *ngFor="let i of inventaire.ventes">
+      <ion-label>{{i.nom}}</ion-label>
+      <div>
+        <p><ion-note>nbre Bouteille:</ion-note> {{i.qte}}</p>
+        <p><ion-note>total:</ion-note> {{sommeLigneInventaire(i)}}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Versement</ion-card-subtitle>
+      <ion-card-title>{{inventaire.versement}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Recap des depenses</ion-card-title>
+      <ion-card-subtitle>ici on liste tous les depenses correspondant à l'interval de date</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="addReste()" color="secondary" >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Catégories de dépense</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list #myList>
+    <ion-list-header>
+      <ion-label>Tous les types de dépense</ion-label>
+    </ion-list-header>
+      
+    
+    <!-- Sliding item with text options on both sides -->
+    <div *ngFor="let item of allCategorieDepenses">
+      <ion-item-sliding *ngIf="item">
+        <ion-item-options side="start">
+          <ion-item-option color="danger" (click)="deleteItem(item)">Supprimer</ion-item-option>
+        </ion-item-options>
+    
+        <ion-item routerLink="/categorie-depense/view/{{item?.id}}">
+          <ion-label text-wrap>
+            <h3>{{item?.nom}}</h3>
+            <p>{{item?.description}}</p>
+          </ion-label>
+        </ion-item>
+    
+        <ion-item-options side="end">
+          <ion-item-option routerLink="/categorie-depense/update/{{item?.id}}">Update</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+
+  </ion-list>
+  <ion-fab position="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button  routerLink="/categorie-depense/add">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+

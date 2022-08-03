@@ -1,0 +1,17 @@
+.center{
+    text-align: center;
+}
+.ravitailler{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-button{
+    position:absolute;
+     z-index: 10000000; 
+     right: 6px;
+     top: -4px;
+    height: 49px;
+    --border-radius: 0 5px 5px 0;
+}
