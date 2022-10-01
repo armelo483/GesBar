@@ -15,7 +15,7 @@
     <ion-item>
       <ion-label>Type Dépense </ion-label>
       <ion-select [compareWith]="compareWith" mode="ios"  formControlName="nom"  [(ngModel)]="currentDepense"  okText="Je choisis" cancelText="Annulez">
-        <ion-select-option   *ngFor ="let depense of allDepenses;" [value]="depense">{{depense.nom|titlecase }}</ion-select-option>
+        <ion-select-option *ngFor ="let depense of allDepenses;" [value]="depense">{{depense.nom|titlecase }}</ion-select-option>
     </ion-select>
     <ion-buttons slot="end"  (click)="goToTypeDepense()">
       <ion-button>

@@ -101,14 +101,18 @@ export class CrudService {
     return retrunValue;
   }
 
-  public async update(obj: Daddy){
-    const TAB_NAME = obj.constructor.name.toLowerCase();
+  public async update(obj: Daddy, tabName: string = ''){
+    const TAB_NAME = (tabName)??obj.constructor.name.toLowerCase();
     let matchingItemsArr: Daddy[];
     console.log(TAB_NAME);
+    console.log(obj);
+    console.log(obj.id);
     
     // eslint-disable-next-line prefer-const
     matchingItemsArr = await this.storage.get(TAB_NAME);
-    matchingItemsArr[obj.id] = obj;
+    matchingItemsArr = matchingItemsArr.filter(Boolean);
+    console.log(matchingItemsArr);
+    matchingItemsArr[obj.id-1] = obj;
     return this.storage.set(TAB_NAME, matchingItemsArr).then((val)=>{
       return  val;
     });

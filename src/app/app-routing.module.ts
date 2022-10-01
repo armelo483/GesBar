@@ -36,6 +36,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/ravitaillement/ravitaillement.module').then( m => m.RavitaillementPageModule)
   },
   {
+    path: 'ravitaillement/update',
+    loadChildren: () => import('./pages/ravitaillement/add-edit-ravitaillement/add-edit-ravitaillement.module').then( m => m.AddEditRavitaillementPageModule)
+  },
+  {
     path: 'list_produit_ravitailler',
     loadChildren: () => import('./pages/ravitaillement/list-produit/list-produit.module').then( m => m.ListProduitPageModule)
   },
@@ -189,7 +193,11 @@ const routes: Routes = [
   {
     path: 'avarie/view',
     loadChildren: () => import('./pages/avarie/view-avarie/view-avarie.module').then( m => m.ViewAvariePageModule)
+  },  {
+    path: 'update-recap',
+    loadChildren: () => import('./pages/update-recap/update-recap.module').then( m => m.UpdateRecapPageModule)
   },
+
 
 ];
 

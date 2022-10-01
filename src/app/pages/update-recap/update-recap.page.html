@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar style="--background: var(--ion-color-primary) "> 
+    <ion-title>Modifier le recapitulatif </ion-title>
+    <ion-buttons slot="end" (click)="dismiss()">
+      <ion-button>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="modalForm" (ngSubmit)="submitModalForm()">
+    <ion-item *ngIf="field_type != 'date'">
+      <ion-label position="floating" *ngIf="field_type == 'text'">{{label_variable}}</ion-label>
+        <ion-input *ngIf="field_type == 'text'" formControlName="recap_variable"></ion-input>
+        <ion-input *ngIf="field_type == 'numeric'" type="number" inputmode="numeric" formControlName="recap_variable"></ion-input>
+
+        <!-- <ion-select *ngIf="field_type == 'select'" placeholder="Liste des produits ravitaillés" [compareWith]="compareWith" mode="ios" formControlName="nom"  [(ngModel)]="currentDepense"> -->
+        <ion-select *ngIf="field_type == 'select'" placeholder="{{label_variable}}" mode="ios" formControlName="recap_variable" [(ngModel)]="currentFournisseur">
+          <ion-select-option  *ngFor="let fournisseur of fournisseurs" [value]="fournisseur">
+            {{fournisseur.nom}}   
+          </ion-select-option>
+            <!-- <ion-select-option>Test</ion-select-option> -->
+        </ion-select>
+        
+      </ion-item>
+      
+      <!-- -->
+      <ion-datetime style="margin: auto !important;" presentation="date" formControlName="recap_variable" displayFormat="d/MM/YYYY" *ngIf="field_type=='date'">
+        <ion-label color="primary">Date</ion-label>
+      </ion-datetime>
+      <!-- -->
+
+      <ion-button type="submit" class="mt-5" expand="block">Modifier {{label_variable}}</ion-button>
+      <ion-button  (click)="dismiss()" class="mt-1" expand="block" style="color: white;">Annulez</ion-button>
+  
+  </form>
+</ion-content>

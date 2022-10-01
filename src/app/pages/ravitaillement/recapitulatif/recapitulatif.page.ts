@@ -6,13 +6,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ravitaillement } from 'src/app/models/ravitaillement';
 import { IonDatetime, ModalController } from '@ionic/angular';
 import { UpdateRecapComponent } from 'src/app/components/update-recap/update-recap.component';
-
-
-// for manage update of all string or number var
-const TYPESIMPLE: number = 1;
-// for manage update of all Array and Object
-const TypeArray = 2;
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UpdateRecapPage } from '../../update-recap/update-recap.page';
+import { CrudService } from 'src/app/services/crud.service';
+import { Daddy } from 'src/app/models/daddyObj';
 
 @Component({
   selector: 'app-recapitulatif',
@@ -34,15 +31,24 @@ export class RecapitulatifPage implements OnInit {
   constructor(
     private ravitaillementSvc: RavitaillementService,
     private router: Router,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private crudService: CrudService
   ) { }
 
   ngOnInit() {
 
+   
+  }
+
+  ionViewWillEnter() {
     let state = history.state;
     this.action = state.action;
+    this.action = "update";
+    const description = '';
+    const nom = '';
 
     console.log(!(this.action == 'view'))
+    console.log(this.action)
     if(state.action == "view"){
       console.log("view");
       this.ravitaillementSvc.setProduitRavitailler(state.ravitaillement);
@@ -52,68 +58,10 @@ export class RecapitulatifPage implements OnInit {
       console.log('update');
       this.ravitaillementSvc.setProduitRavitailler(state.ravitaillement);
     }
-    // -----------------------------------------------------
-    // let rav : Ravitaillement = {
-    //   date: "2022-06-20",
-    //   dette: 0,
-    //   fournisseur: {id: 4, nom: 'Réné TKc'},
-    //   id: 3,
-    //   id_point_vente: 0,
-    //   inventaireIsOK: 0,
-    //   montant_verse: 1000000,
-    //   nbre_bouteille_sup_entree: [],
-    //   nbre_bouteille_sup_sortie: [],
-    //   nbre_casier_plein_entree: 70,
-    //   nbre_casier_plein_sortie: 10,
-    //   nbre_casier_sup_entree: 0,
-    //   nbre_casier_sup_sortie: 0,
-    //   num_facture: "Num_facture",
-    //   photo: null,
-    //   produits: [
-    //     {
-    //       casier: {id: 2, nbreBtleParCasier: 24, nom: 'C24', description: '', visibilite: 1},
-    //       categorie: {id: 1, nom: 'Bière', description: 'je suis la description', visibilite: 1},
-    //       fournisseurs: [
-    //         {id: 3, nom: 'Guinness', adresse: '', phone1: '', phone2: '', visibilite:1, collecte_ristourne: false},
-    //         {id: 4, nom: 'Réné TKc', adresse: '', phone1: '', phone2: '', visibilite:1, collecte_ristourne: false}
-    //       ],
-    //       hasCasier: true,
-    //       id: 4,
-    //       imgLink: null,
-    //       nbreBtleParCasier: 24,
-    //       nom: "Petite Guinness",
-    //       prixA: 13200,
-    //       prixV: 14400,
-    //       qte: 1680,
-    //       ristourne: 300,
-    //       upload: 0
-    //   },
-    //   {
-    //       casier: {id: 2, nbreBtleParCasier: 24, nom: 'C24', description: '', visibilite: 1},
-    //       categorie: {id: 1, nom: 'Bière', description: 'je suis la description', visibilite: 1},
-    //       fournisseurs: [
-    //         {id: 3, nom: 'Guinness', adresse: '', phone1: '', phone2: '', visibilite:1, collecte_ristourne: false},
-    //         {id: 4, nom: 'Réné TKc', adresse: '', phone1: '', phone2: '', visibilite:1, collecte_ristourne: false}
-    //       ],
-    //       hasCasier: true,
-    //       id: 5,
-    //       imgLink: null,
-    //       nbreBtleParCasier: 15,
-    //       nom: "Kadji",
-    //       prixA: 7200,
-    //       prixV: 7800,
-    //       qte: 100,
-    //       ristourne: 250,
-    //       upload: 0
-    //   }
-    //   ],
-    //   save: 0,
-    //   somme_total: 924000,
-    // }
-    // this.ravitaillementSvc.setProduitRavitailler(rav);
-    // -----------------------------------------------------------------
     
     this.ravitaillement = this.ravitaillementSvc.getProduitRavitailler();
+    let produits = this.ravitaillement.produits.filter(Boolean);
+    this.ravitaillement.produits = produits;
     console.log(this.ravitaillement); 
   }
 
@@ -148,23 +96,61 @@ export class RecapitulatifPage implements OnInit {
     }
   }
 
-  async update(element:any){
+  async update(event:object, ravitaillementObj:object, fieldLabel:string, fieldName:string, secondFieldName?:string, index?:number ){
 
+var element = {obj: null, label: null, field: null, field2:null, index:null};
+element.obj = ravitaillementObj;
+element.label = fieldLabel;
+element.field = fieldName;
+element.field2 = secondFieldName;
+element.index = index;
+
+// objInModal.value = event.val;
+// objInModal.value = valueField;
+console.log(element);
+console.log(event);
     const modal = await this.modalCtrl.create({
-      component: UpdateRecapComponent,
-      cssClass: 'custom-modal',
-      mode: 'ios',
+      component: UpdateRecapPage,
       animated: true,
       componentProps: {value: element},
-    })
+    });
 
-    modal.onDidDismiss().then((val)=>{
+    modal.onWillDismiss().then((val)=>{
       
       if( val.role == "backdrop"){
         return;
       }
+      console.log("val.data");
       console.log(val.data);
-      this.ravitaillement[element] = val.data.nom
+
+      if (!['prixA', 'nom', 'qte', 'nbreBtleParCasier'].includes(fieldName)) {
+        this.ravitaillement[`${val.data.fieldName}`] = val.data.value;
+      }else {
+
+        let produits = this.ravitaillement.produits.filter(Boolean);
+        let index = val.data.index;
+        this.ravitaillement.produits = produits;
+
+        if (fieldName === 'prixA') {
+          this.ravitaillement['produits'][index]['prixA'] = val.data.value;
+        } else if (fieldName === 'nom') {
+          console.log(val.data)
+          this.ravitaillement['produits'][index]['nom'] = val.data.value;
+        } else if (fieldName === 'qte' ) {
+          this.ravitaillement['produits'][index]['qte'] = val.data.value;
+        }else if (fieldName === 'nbreBtleParCasier') {
+          this.ravitaillement['produits'][index]['nbreBtleParCasier'] = val.data.value;
+        }
+        
+        this.crudService.update(this.ravitaillement['produits'][index], 'produit');
+      }
+      
+      //this.ravitaillement.constructor = Ravitaillement;
+      // this.ravitaillement
+      //  this.ravitaillement = val.data.ravitaillement[0];
+      console.log(this.ravitaillement);
+      this.crudService.update(this.ravitaillement, 'ravitaillement');
+      // this.ravitaillement[element] = val.data.nom
       
     })
 

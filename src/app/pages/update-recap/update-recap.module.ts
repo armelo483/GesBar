@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RecapitulatifPageRoutingModule } from './recapitulatif-routing.module';
+import { UpdateRecapPageRoutingModule } from './update-recap-routing.module';
 
-import { RecapitulatifPage } from './recapitulatif.page';
+import { UpdateRecapPage } from './update-recap.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule,
-    RecapitulatifPageRoutingModule
+    UpdateRecapPageRoutingModule,
+    ReactiveFormsModule
   ],
-  declarations: [RecapitulatifPage]
+  declarations: [UpdateRecapPage]
 })
-export class RecapitulatifPageModule {}
+export class UpdateRecapPageModule {}

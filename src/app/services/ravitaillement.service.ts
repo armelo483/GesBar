@@ -153,7 +153,7 @@ export class RavitaillementService {
   }
 
 
-  // retourne le ravitaillemnt compris entre beginDate et enDate
+  // retourne leS ravitaillemntS compris entre beginDate et enDate
   getRavitaillement (beginDate: number, endDate: number ): Promise<Array<Ravitaillement>>{
     console.log(beginDate);
     console.log(endDate);

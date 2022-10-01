@@ -21,6 +21,8 @@ import { SkipemptyPipe } from './pipes/skipempty.pipe';
 import { DateMajorationPipe } from './pipes/date-majoration.pipe';
 import { DateMinorationPipe } from './pipes/date-minoration.pipe';
 import { MoneyFormatPipe } from './pipes/money-format.pipe';
+import { UpdateRecapPage } from './pages/update-recap/update-recap.page';
+import { UpdateRecapComponent } from './components/update-recap/update-recap.component';
 
 
 

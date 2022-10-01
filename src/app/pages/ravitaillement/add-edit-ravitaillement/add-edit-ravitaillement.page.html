@@ -1,9 +1,97 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>add_edit_ravitaillement</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button routerLink="/ravitaillement/recapitulatif"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit ravitaillement</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form class="ion-padding" [formGroup]="recapitulatifForm" (ngSubmit)="submitForm()" autocomplete="off">
+    <p>
+      Veuillez modifier la date de ravitaillement
+    </p>
+    <ion-item>
+      <ion-label position="floating">Date </ion-label>
+      <ion-datetime formControlName="date"></ion-datetime>
+      <!-- <ion-input ng-model="recapitulatifForm.date" formControlName="date" inputmode="text"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Numéro Facture </ion-label>
+      <ion-textarea ng-model="recapitulatifForm.numeroFacture" formControlName="numeroFacture" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Nombre de casiers sup entrés </ion-label>
+      <ion-textarea ng-model="recapitulatifForm.nbre_casier_sup_entree" formControlName="nbre_casier_sup_entree" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Nombre de casiers sup sortis </ion-label>
+      <ion-textarea ng-model="recapitulatifForm.nbre_casier_sup_sortie" formControlName="nbre_casier_sup_sortie" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Fournisseur </ion-label>
+      <ion-textarea ng-model="recapitulatifForm.fournisseur" formControlName="fournisseur" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Total facture</ion-label>
+      <ion-textarea ng-model="recapitulatifForm.totalFacture" formControlName="totalFacture" clearOnEdit="true"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Montant versé</ion-label>
+      <ion-textarea ng-model="recapitulatifForm.montantVerse" formControlName="montantVerse" clearOnEdit="true"></ion-textarea>
+    </ion-item>
 
+    <ion-grid style="margin-top: 0;" class="ion-margin">
+      <ion-row>
+        <ion-col size="4">Noms</ion-col>
+        <ion-col size="4">Qté(C-B)</ion-col>
+        <ion-col size="4">Prix</ion-col>
+      </ion-row>
+
+
+        <div *ngIf="produits" formArrayName="produits">          
+          <div *ngFor="let produit of produits().controls; let i=index">
+            <div [formGroupName]="i">
+              <ion-item>
+                <ion-label floating>Nom produit livré</ion-label>
+                <ion-input type="text" formControlName="nom"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Quantité de bouteilles</ion-label>
+                <ion-input type="number" inputMode="numeric" formControlName="qte"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Nombre de bouteilles</ion-label>
+                <ion-input type="number" inputMode="numeric" formControlName="nbreBtleParCasier"></ion-input>
+              </ion-item>
+       
+              <button (click)="removeProduit(i)">Enlever le produit</button>
+            </div>
+          </div>
+          
+        </div>
+
+
+
+        <!-- <ion-row *ngFor="let p of ravitaillement?.produits" (click)="update({produit: p})">
+          <ion-col size="4" *ngIf="p"><ion-input value="{{p?.nom}}"></ion-input></ion-col>
+          <ion-col size="4" *ngIf="p" style="text-align: right;">
+            <ion-input value="{{p?.qte}}"></ion-input>
+          <ion-col size="4" *ngIf="p" style="text-align: right;">
+            <ion-input value="{{p?.nbreBtleParCasier}}"></ion-input>
+          </ion-col>
+        </ion-row> -->
+
+    </ion-grid>
+    <!-- <ion-item>
+      <ion-select placeholder="Liste des produits ravitaillés" [compareWith]="compareWith" mode="ios" formControlName="nom"  [(ngModel)]="currentDepense">
+        <ion-select-option  *ngFor="let p of ravitaillement?.produits" [value]="p">{{p.nom|titlecase}}</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+   
+    
+    <ion-button type="submit" class="mt-5" expand="block">Modifier le recap ravitaillement</ion-button>
+    <ion-button  (click)="dismissOrNotIfModal()" class="mt-1" expand="block" style="color: white;">Non je renonce</ion-button>
+  </form>
 </ion-content>

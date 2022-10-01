@@ -13,29 +13,40 @@
 </ion-header>
 
 <ion-content>
-  <ion-item [button]="action == 'update'" id="datetime-modal">
+  <ion-item [button]="action == 'update'" (click)="update($event, ravitaillement, 'Date', 'date')">
     <ion-label color="primary">Date</ion-label>
-    <ion-label slot="end" color="primary">{{ravitaillement?.date | date : "d/MM/YYYY"}}</ion-label>
+    <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
+    <ion-label slot="end" color="primary">
+      {{ravitaillement?.date | date : "d/MM/YYYY"}}
+    </ion-label>
   </ion-item>
   <ion-item [button]="action == 'update'">
     <ion-label>Point de vente</ion-label>
+    <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
     <ion-label slot="end" color="primary">TKC bar</ion-label>
   </ion-item>
-  <ion-item [button]="action == 'update'" (click)="update({element: 'num_facture', text: 'N° Facture', type: 1})">
-    <ion-label>N° Facture</ion-label>
+  <ion-item [button]="action == 'update'" (click)="update($event, ravitaillement, 'N° de facture', 'num_facture')">
+    <ion-label>N° de facture</ion-label>
+    <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
     <ion-label slot="end" color="primary">{{ravitaillement?.num_facture}}</ion-label>
   </ion-item>
-  <ion-item  [button]="action == 'update'" (click)="update('nom')">
+  <ion-item  [button]="action == 'update'" (click)="update($event, ravitaillement, 'Fournisseur associé', 'fournisseur')">
       <ion-label >Fournisseur</ion-label>
+      <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
       <ion-label slot="end" color="primary">{{ravitaillement?.fournisseur?.nom}}</ion-label>
   </ion-item>
-  <ion-item [button]="action == 'update'">
+  <ion-item [button]="action == 'update'" (click)="update($event, ravitaillement, 'Total Facture', 'somme_total')">
     <ion-label >Total Facture</ion-label>
-    <ion-label slot="end" color="primary">{{ravitaillement?.somme_total}} Fcfa</ion-label>
+    <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
+    <ion-label slot="end" color="primary"><span>{{ravitaillement?.somme_total}}</span><span>Fcfa</span> </ion-label>
   </ion-item>
-  <ion-item [button]="action == 'update'" (click)="update('montant_verse')">
+  <ion-item [button]="action == 'update'" (click)="update($event, ravitaillement, 'Montant versé', 'montant_verse')">
     <ion-label >Montant Versé</ion-label>
-    <ion-label slot="end" color="primary">{{ravitaillement?.montant_verse}} Fcfa</ion-label>
+    <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
+    <ion-label slot="end" color="primary">
+      <span>{{ravitaillement?.montant_verse}}</span>
+       <span>Fcfa</span>
+      </ion-label>
   </ion-item>
   <div >
     <div class="flex" style="justify-content: space-between;margin-top: 16px;">
@@ -49,20 +60,27 @@
         <ion-col size="4">Prix</ion-col>
       </ion-row>
       <div  *ngIf="ravitaillement?.produits">
-        <ion-row *ngFor="let p of ravitaillement?.produits" (click)="update({produit: p})">
-          <ion-col size="4" *ngIf="p">{{p?.nom}}</ion-col>
-          <ion-col size="4" *ngIf="p" style="text-align: right;">{{divisionEntiere(p.qte, p.nbreBtleParCasier)}}-{{divisionReste(p.qte, p.nbreBtleParCasier)}}</ion-col>
-          <ion-col size="4" *ngIf="p" style="text-align: right;">montant</ion-col>
+        <ion-row  *ngFor="let p of ravitaillement?.produits; let i = index" >
+          <ion-col size="4" *ngIf="p" (click)="update($event, ravitaillement, 'Nom produit', 'nom', '', i)">
+            <ion-icon name="pencil-outline" style="color: white !important;" *ngIf="action == 'update'"></ion-icon>{{p?.nom}}</ion-col>
+          <ion-col size="4" *ngIf="p" style="text-align: right;"   (click)="update($event, ravitaillement, 'Qté bouteille totale', 'qte', 'nbreBtleParCasier', i)">
+            <ion-icon name="pencil-outline" style="color: white !important;" *ngIf="action == 'update'"></ion-icon>
+            {{divisionEntiere(p.qte, p.nbreBtleParCasier)}}-{{divisionReste(p.qte, p.nbreBtleParCasier)}}</ion-col>
+          <ion-col size="4" *ngIf="p" style="text-align: right; "  (click)="update($event, ravitaillement, 'Prix Achat', 'prixA', '', i)">
+            <ion-icon name="pencil-outline" style="color: white !important;" *ngIf="action == 'update'"></ion-icon>
+            {{p.prixA}}</ion-col>
         </ion-row>
       </div>
     </ion-grid>
   </div>
-  <ion-item  [button]="action == 'update'" (click)="update('nbre_casier_plein_entree')">
+  <ion-item  [button]="action == 'update'" (click)="update($event, ravitaillement, 'Nbre Casier plein Entrés', 'nbre_casier_plein_entree')">
     <ion-label > Nbre Casier plein Entrés</ion-label>
+    <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
     <ion-label slot="end">{{ravitaillement?.nbre_casier_plein_entree}}</ion-label>
   </ion-item>
-  <ion-item [button]="action == 'update'" (click)="update('nbre_casier_plein_sortie')">
+  <ion-item [button]="action == 'update'" (click)="update($event, ravitaillement, 'Nbre Casier plein Entrés', 'nbre_casier_plein_sortie')">
     <ion-label >Nombre Casier plein Sortie</ion-label>
+    <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
     <ion-label slot="end">{{ravitaillement?.nbre_casier_plein_sortie}}</ion-label>
   </ion-item>
 
@@ -97,12 +115,14 @@
 
     </ion-row>
 
-    <ion-item [button]="action == 'update'" (click)="update('nbre_casier_sup_entree')">
+    <ion-item [button]="action == 'update'" (click)="update($event, ravitaillement, 'Nombre casiers supplementaires entrés', 'nbre_casier_sup_entree')">
       <ion-label>Nombre casiers supplementaires entrés</ion-label>
+      <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
       <ion-label slot="end" >{{ravitaillement?.nbre_casier_sup_entree}}</ion-label>
     </ion-item>
-    <ion-item [button]="action == 'update'"  (click)="update('nbre_casier_sup_sortie')">
+    <ion-item [button]="action == 'update'"  (click)="update($event, ravitaillement, 'Nombre casiers supplementaires sortis', 'nbre_casier_sup_sortie')">
       <ion-label>Nombre casiers supplementaires sortis</ion-label>
+      <ion-icon name="pencil-outline" *ngIf="action == 'update'"></ion-icon>
       <ion-label slot="end" >{{ravitaillement?.nbre_casier_sup_sortie}}</ion-label>
     </ion-item>
   </ion-grid>

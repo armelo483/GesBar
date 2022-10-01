@@ -1,18 +1,19 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-subtitle>{{value.text}}</ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    Awesome content
-  </ion-card-content>
-  <ion-card-footer>
-    <ion-buttons expand="full">
-      <ion-button (click)="onClick()">
-        Click me
-      </ion-button>
-      <ion-button (click)="onClick()">
-        Click me
+ <ion-header>
+  <ion-toolbar style="--background: var(--ion-color-primary) "> 
+    <ion-title>Modifier le recapitulatif </ion-title>
+    <ion-buttons slot="end" (click)="dismiss()">
+      <ion-button>
+        <ion-icon name="close-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
-  </ion-card-footer>
-</ion-card>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="modalForm" (ngSubmit)="toto()">
+    <ion-item>
+      <ion-label position="floating">Label</ion-label>
+        <ion-input value="Tresssss"></ion-input>
+      </ion-item>
+  </form>
+</ion-content>
