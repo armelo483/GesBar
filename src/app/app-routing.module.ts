@@ -197,6 +197,10 @@ const routes: Routes = [
     path: 'update-recap',
     loadChildren: () => import('./pages/update-recap/update-recap.module').then( m => m.UpdateRecapPageModule)
   },
+  {
+    path: 'rapport',
+    loadChildren: () => import('./pages/rapport/rapport.module').then( m => m.RapportPageModule)
+  },
 
 
 ];

@@ -4,8 +4,9 @@ export class Depense extends Daddy{
 
   constructor(
     public nom: string,
-    public description?: string){
-
+    public date: Date,
+    public description?: string,
+    ){
     super();
   }
 }

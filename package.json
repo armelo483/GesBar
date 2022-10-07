@@ -25,6 +25,7 @@
     "@ionic/cordova-builders": "^6.1.0",
     "@ionic/storage": "^3.0.6",
     "@ionic/storage-angular": "^3.0.6",
+    "chart.js": "^3.9.1",
     "cordova": "^11.0.0",
     "cordova-plugin-sqlite-2": "^1.0.7",
     "cordova-sqlite-storage": "^6.0.0",
