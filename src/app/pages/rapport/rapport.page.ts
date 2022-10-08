@@ -1,5 +1,7 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Chart, ChartTypeRegistry, registerables } from 'chart.js';
+import { CrudService } from 'src/app/services/crud.service';
 
 @Component({
   selector: 'app-rapport',
@@ -11,10 +13,12 @@ export class RapportPage implements OnInit {
   @ViewChild('repartitionDepenseChart') repartitionDepenseChartElt;
 
   depenseChart: any;
+  type: string;
   repartitionDepenseChart: any;
   colorArray: any;
+  typeChart:  keyof ChartTypeRegistry;
   
-  constructor(){
+  constructor(private crudService: CrudService){
     Chart.register(...registerables);
  }
 
@@ -23,35 +27,45 @@ export class RapportPage implements OnInit {
   
 
   ionViewDidEnter() {
+
     this.createChart('depense');
-    this.createChart('repartition_depense');
+    // this.createChart('repartition_depense');
   }
 
-  createChart(type: string) {
-    let nativeElement = '';
+ async  createChart(type: string) {
+    let nativeElement;
     let title = '';
-    let typeChart: string = '';
+    let dataObj: {labels: any[], data: any[]} = {labels:[], data:[]}; // label here is the datetime for the time being for expenses
     let typeChartVar: any = '';
-    if (type === 'depense') {
+    this.type = type;
+    if (type === 'depense') { 
+
       nativeElement = this.depenseChartElt.nativeElement;
-      typeChart = 'bar';
+      this.typeChart = 'bar';
       typeChartVar = this.depenseChart;
+      let depenses = await this.crudService.read('lignedepense');
+      depenses = depenses.filter(Boolean); 
+      depenses.forEach(depense => {
+        dataObj.labels.push(formatDate(depense.date, 'dd/MM/yyyy h:mm:ss a', 'fr-FR'));
+        dataObj.data.push(depense.montant);
+        console.log(dataObj);
+      });
+       
       title = 'Evolution des dépenses du mois';
+      
     }else if(type === 'repartition_depense') {
       nativeElement = this.repartitionDepenseChartElt.nativeElement;
-      typeChart = 'radar';
+      this.typeChart = 'radar';
       typeChartVar = this.repartitionDepenseChart;
     }
     
-    // `${typeChart}`
     typeChartVar = new Chart(nativeElement, {
-      // type: getProperty(ChartTypeRegistry, 'bar'),
-      type: "bar",
+      type: this.typeChart,
       data: {
-        labels: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
+        labels: [...dataObj.labels],
         datasets: [{
           label: title,
-          data: [2.5, 2.8, 5, 6.9, 6.9, 7.5, 10, 12],
+          data: [...dataObj.data],
           backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
           borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
           borderWidth: 1

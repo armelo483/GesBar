@@ -19,9 +19,9 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="welcome-card">
+  <ion-card class="welcome-card" *ngIf="type=='repartition_depense'">
     <ion-card-header>
-      <!-- <ion-card-subtitle></ion-card-subtitle> -->
+     <ion-card-subtitle></ion-card-subtitle> 
       <ion-card-title>Repartition des dépenses du mois</ion-card-title>
     </ion-card-header>
     <ion-card-content>
