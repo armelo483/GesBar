@@ -1,10 +1,12 @@
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 /* eslint-disable no-underscore-dangle */
 import { LigneDepense } from './../../../models/ligne_depense';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { IonModal } from '@ionic/angular';
 import { PointVente } from '../../../models/PointVente';
 import { Depense } from './../../../models/depense';
 import { CrudService } from './../../../services/crud.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -20,6 +22,9 @@ import { ErrorMsg } from 'src/app/lib/globalVar';
 export class AddEditDepensePage implements OnInit {
 
   allPointVentes: PointVente[] = [];
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  name: string;
+  @ViewChild(IonModal) modal: IonModal;
   allDepenses: Depense[] = [];
   action = 'Ajouter';
   id: number ;
@@ -105,10 +110,11 @@ export class AddEditDepensePage implements OnInit {
     let pointVente: any= '';
     let montant = 0;
     let nom = '';
+    let date = new Date().toISOString();
 
     if(Object.values(data).filter(Boolean).length > 2) {
       this.action = 'Modifier';
-      [motif, nom, pointVente, montant] = [data.motif, data.nom, '', data.montant];
+      [motif, nom, pointVente, montant, date] = [data.motif, data.nom, '', data.montant, data.date];
     }
 
     this.ligneDepenseForm  = this.formBuilder.group({
@@ -116,7 +122,8 @@ export class AddEditDepensePage implements OnInit {
       nom: [nom, [Validators.required]],
       montant : [montant , [Validators.required, Validators.min(0)]],
       // pointVente:  [pointVente , [Validators.required]]
-      pointVente:  [pointVente , [Validators.required]]
+      pointVente:  [pointVente , [Validators.required]],
+      date:  [date , [Validators.required]],
     });
   }
 
@@ -213,6 +220,21 @@ export class AddEditDepensePage implements OnInit {
 
     const CURRENT_ITEM_IDX = (this.currentDepense)?(ID_COLUMN_ARR.indexOf(`${this.currentDepense.id}`)):0;
     this.currentDepense = this.allDepenses[CURRENT_ITEM_IDX];
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }
   }
 
 }

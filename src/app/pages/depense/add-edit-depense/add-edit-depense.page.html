@@ -37,6 +37,7 @@
       <ion-label position="floating" >Montant </ion-label>
       <ion-input formControlName="montant" type="number"></ion-input>
     </ion-item>
+
     <div *ngFor="let error of errorMessages.montant">
       <ng-container *ngIf="montant.hasError(error.type) && (montant.dirty || montant.touched)">
         <small class="error-message pl10">{{error.message}}</small>
@@ -50,6 +51,47 @@
           <ion-select-option   *ngFor ="let pointvente of allPointVentes;" [value]="pointvente">{{pointvente.nom|titlecase }}</ion-select-option>
       </ion-select>
     </ion-item>
+
+    <!-- <ion-item>
+      <ion-label>Pick date</ion-label>
+      <ion-input formControlName="date"
+        value="{{ date | date: 'dd/MM/yyyy' }}"
+        id="date"
+        class="ion-text-end"></ion-input>
+    </ion-item> -->
+    <ion-button id="open-modal" expand="block">Open</ion-button>
+  <p>test</p>
+    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel()">Cancel</ion-button>
+            </ion-buttons>
+            <ion-title>Welcome</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-label position="stacked">Enter your name</ion-label>
+            <ion-input type="text" placeholder="Your name" [(ngModel)]="name"></ion-input>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+    <!-- <ion-modal trigger="date" size="cover">
+      <ng-template>
+        <ion-datetime
+        formControlName="date"
+          presentation="date"
+          [(ngModel)]="date"
+        ></ion-datetime>
+      </ng-template>
+    </ion-modal> -->
+    
     <!-- <div *ngFor="let error of errorMessages.description">
       <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
         <small class="error-message pl10">{{error.message}}</small>
